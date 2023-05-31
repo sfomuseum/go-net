@@ -4,7 +4,7 @@ package ip
 import (
 	"encoding/binary"
 	"fmt"
-	_ "log"
+	"log"
 	"net"
 	"net/http"
 	"strings"
@@ -13,6 +13,10 @@ import (
 // Derive a numeric IP address from 'req'.
 func DeriveAddress(req *http.Request) (uint32, error) {
 
+	// TBD
+	// https://stackoverflow.com/questions/75293713/getting-requesters-ip-address-in-aws-lambda-function
+	// https://gist.github.com/fsaravia/13f4b94d5a370b1198f8474422c8b862
+	
 	remote_addr := req.RemoteAddr
 
 	// because net.ParseIP can't parse stuff like "127.0.0.1:5656373"
@@ -35,11 +39,9 @@ func DeriveAddress(req *http.Request) (uint32, error) {
 // IPToInt converts ip_addr in to a `uint32` value.
 func IPToInt(ip_addr net.IP) uint32 {
 
-	/*
-		if len(ip_addr) == 16 {
-			return binary.BigEndian.Uint32(ip_addr[12:16])
-		}
-	*/
+	if len(ip_addr) == 16 {
+		return binary.BigEndian.Uint32(ip_addr[12:16])
+	}
 
 	return binary.BigEndian.Uint32(ip_addr.To4())
 }
