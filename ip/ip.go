@@ -4,7 +4,6 @@ package ip
 import (
 	"encoding/binary"
 	"fmt"
-	"log"
 	"net"
 	"net/http"
 	"strings"
