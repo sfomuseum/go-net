@@ -11,12 +11,8 @@ import (
 
 // Derive a numeric IP address from 'req'.
 func DeriveAddress(req *http.Request) (uint32, error) {
-
-	// TBD
-	// https://stackoverflow.com/questions/75293713/getting-requesters-ip-address-in-aws-lambda-function
-	// https://gist.github.com/fsaravia/13f4b94d5a370b1198f8474422c8b862
 	
-	remote_addr := req.RemoteAddr
+	remote_addr := RemoteIP(req)
 
 	// because net.ParseIP can't parse stuff like "127.0.0.1:5656373"
 	// which is what remote_addr will be if we're running in debug mode
